@@ -1,0 +1,47 @@
+version: "3.9"
+services:
+  mysql:
+    image: mysql:8
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: users_db
+    volumes:
+      - /mnt/mysql-data:/var/lib/mysql
+    networks:
+      - db_net
+    # ports:
+    #   - "3306:3306"
+
+  backend:
+    image: tushartiwaskar/backend-service:v3   # ← use the image from Docker Hub
+    container_name: backend-service
+    environment:
+      DB_HOST: mysql
+      DB_USER: root
+      DB_PASSWORD: root
+      DB_NAME: users_db
+    depends_on:
+      - mysql
+    networks:
+      - backend_net
+      - db_net
+    # ports:
+    #   - "5000:5000"
+
+  frontend:
+    image:  tushartiwaskar/frontend-service:v5
+    container_name: frontend-service
+    depends_on:
+      - backend
+    networks:
+      - frontend_net
+      - backend_net
+    ports:
+      - "8080:80"
+
+networks:
+  frontend_net:
+  backend_net:
+  db_net:
