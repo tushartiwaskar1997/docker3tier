@@ -1,4 +1,4 @@
-DEVICE="/dev/nvme2n1"
+DEVICE="/dev/nvme1n1"
 MOUNT_POINT="/mnt/mysql-data"
 FSTAB_ENTRY="$DEVICE $MOUNT_POINT xfs defaults,nofail 0 2"
 

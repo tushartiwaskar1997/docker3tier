@@ -32,6 +32,14 @@ sudo yum install -y cronie
 sudo systemctl enable crond
 sudo systemctl start crond
 
+echo "installing the terraform"
+sudo yum install -y unzip
+sudo https://releases.hashicorp.com/terraform/1.14.0/terraform_1.14.0_linux_amd64.zip
+sudo unzip terraform_1.14.0_linux_amd64.zip
+suod sudo mv terraform /usr/local/bin/
+suod terraform -v
+
+
 echo "📝 Adding cron job for backup every 5 minutes..."
 CRON_JOB="*/5 * * * * /bin/bash $PROJECT_DIR/backup.sh >> /var/log/mysql-backup.log 2>&1"
 ( sudo crontab -l 2>/dev/null | grep -v "backup.sh" ; echo "$CRON_JOB" ) | sudo crontab -
