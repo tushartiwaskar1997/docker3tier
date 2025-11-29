@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-PROJECT_DIR="/home/ec2-user/project"
+PROJECT_DIR="/home/ec2-user/docker3tier"
 
 echo "🚀 Updating system..."
 sudo yum update -y
@@ -34,10 +34,10 @@ sudo systemctl start crond
 
 echo "installing the terraform"
 sudo yum install -y unzip
-sudo https://releases.hashicorp.com/terraform/1.14.0/terraform_1.14.0_linux_amd64.zip
+sudo wget https://releases.hashicorp.com/terraform/1.14.0/terraform_1.14.0_linux_amd64.zip
 sudo unzip terraform_1.14.0_linux_amd64.zip
 suod sudo mv terraform /usr/local/bin/
-suod terraform -v
+echo terraform -v
 
 
 echo "📝 Adding cron job for backup every 5 minutes..."
