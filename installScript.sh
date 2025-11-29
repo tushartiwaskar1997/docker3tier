@@ -37,7 +37,7 @@ sudo yum install -y unzip
 sudo wget https://releases.hashicorp.com/terraform/1.14.0/terraform_1.14.0_linux_amd64.zip
 sudo unzip terraform_1.14.0_linux_amd64.zip
 sudo rm -rf /usr/local/bin/terraform
-suod mv terraform /usr/local/bin/
+sudo mv terraform /usr/local/bin/
 echo terraform -v
 
 
