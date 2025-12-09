@@ -1,0 +1,16 @@
+global:
+  scrape_interval: 5s
+
+scrape_configs:
+  - job_name: "node-backend"
+    metrics_path: /metrics
+    static_configs:
+      - targets: ["backend-service:3000"]
+
+  - job_name: "mysql"
+    static_configs:
+      - targets: ["mysql-exporter:9104"]
+
+  - job_name: "docker-host"
+    static_configs:
+      - targets: ["node-exporter:9100"]

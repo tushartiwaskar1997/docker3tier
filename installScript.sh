@@ -42,11 +42,21 @@ echo terraform -v
 
 
 echo "📝 Adding cron job for backup every 5 minutes..."
-CRON_JOB="*/5 * * * * /bin/bash $PROJECT_DIR/backup.sh >> /var/log/mysql-backup.log 2>&1"
-( sudo crontab -l 2>/dev/null | grep -v "backup.sh" ; echo "$CRON_JOB" ) | sudo crontab -
+CRON_JOB="*/5 * * * * /bin/bash /home/ec2-user/docker3tier/backup.sh >> /var/log/mysql-backup.log 2>&1"
+
+# Add cron only if it does not already exist
+( sudo crontab -l 2>/dev/null | grep -qF "$CRON_JOB" ) || ( sudo crontab -l 2>/dev/null; echo "$CRON_JOB" ) | sudo crontab -
 
 echo "🔄 Restarting cron service..."
 sudo systemctl restart crond
 
 echo "🎉 Setup completed successfully!"
 echo "⚠️ Logout & login again to activate docker group permissions"
+
+
+aws confifgure no hhard coaded , 
+terraform init , terraform plan  ,terraform apply  
+ebs mount
+sudo docker-compose up -d 
+s3 backup pre check 
+

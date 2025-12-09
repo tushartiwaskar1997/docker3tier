@@ -9,4 +9,3 @@ if [ $? -eq 0 ]; then
         else
                     echo "❌  Backup failed"
 fi
-~
