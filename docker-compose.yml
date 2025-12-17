@@ -41,19 +41,6 @@ services:
   # ------------------------- Monitoring -------------------------
 
 
-  mysql-exporter:
-    image: prom/mysqld-exporter
-    container_name: mysql-exporter
-    restart: always
-    environment:
-      DATA_SOURCE_NAME: "root:root@(mysql:3306)/"
-    ports:
-      - "9104:9104"
-    depends_on:
-      - mysql
-    networks:
-      - db_net
-
   node-exporter:
     image: prom/node-exporter
     container_name: node-exporter
@@ -72,27 +59,12 @@ services:
     ports:
       - "9090:9090"
     depends_on:
-      - mysql-exporter
       - node-exporter
       - backend
     networks:
       - monitor_net
       - backend_net
       - db_net
-
-  cadvisor:
-    image: gcr.io/cadvisor/cadvisor:v0.47.2
-    container_name: cadvisor
-    privileged: true
-    volumes:
-      - /:/rootfs:ro
-      - /var/run:/var/run:ro
-      - /sys:/sys:ro
-      - /var/lib/docker/:/var/lib/docker:ro
-    ports:
-      - "8081:8080"
-    networks:
-      - backend_net
 
   grafana:
     image: grafana/grafana

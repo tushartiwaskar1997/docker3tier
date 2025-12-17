@@ -53,10 +53,5 @@ sudo systemctl restart crond
 echo "🎉 Setup completed successfully!"
 echo "⚠️ Logout & login again to activate docker group permissions"
 
-
-aws confifgure no hhard coaded , 
-terraform init , terraform plan  ,terraform apply  
-ebs mount
-sudo docker-compose up -d 
-s3 backup pre check 
+echo "use on grafana 1860 for node exported" 
 
