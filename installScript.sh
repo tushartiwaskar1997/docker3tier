@@ -55,3 +55,15 @@ echo "⚠️ Logout & login again to activate docker group permissions"
 
 echo "use on grafana 1860 for node exported" 
 
+# Get IMDSv2 token
+TOKEN=$(curl -s -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600")
+# Fetch metadata
+INSTANCE_ID=$(curl -s -H "X-aws-ec2-metadata-token: $TOKEN" http://169.254.169.254/latest/meta-data/instance-id)
+# Avablity zone
+AVAILABILITY_ZONE=$(curl -s -H "X-aws-ec2-metadata-token: $TOKEN" http://169.254.169.254/latest/meta-data/placement/availability-zone)
+
+export EC2_INSTANCE_ID="$INSTANCE_ID"
+export EC2_AVAILABILITY_ZONE="$AVAILABILITY_ZONE"
+
+echo "EC2_INSTANCE_ID=$EC2_INSTANCE_ID"
+echo "EC2_AVAILABILITY_ZONE=$EC2_AVAILABILITY_ZONE"
