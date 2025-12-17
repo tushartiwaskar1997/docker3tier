@@ -42,16 +42,17 @@ services:
 
 
   mysql-exporter:
-    image: prom/mysqld-exporter:0.18.0
+    image: prom/mysqld-exporter
     container_name: mysql-exporter
-    secrets:
-     - mysql_exporter_dsn
+    restart: always
     environment:
-      MYSQLD_EXPORTER_DSN_FILE: /run/secrets/mysql_exporter_dsn
+      DATA_SOURCE_NAME: "root:root@(mysql:3306)/"
+    ports:
+      - "9104:9104"
     depends_on:
       - mysql
     networks:
-    - db_net
+      - db_net
 
   node-exporter:
     image: prom/node-exporter
@@ -107,8 +108,4 @@ networks:
   backend_net:
   db_net:
   monitor_net:
-
-secrets:
-  mysql_exporter_dsn:
-    external: true
 
