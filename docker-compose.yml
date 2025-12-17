@@ -40,18 +40,18 @@ services:
 
   # ------------------------- Monitoring -------------------------
 
+
   mysql-exporter:
-    image: prom/mysqld-exporter
+    image: prom/mysqld-exporter:0.18.0
     container_name: mysql-exporter
-    restart: always
+    secrets:
+     - mysql_exporter_dsn
     environment:
-      DATA_SOURCE_NAME: "root:root@(mysql:3306)/"
-    ports:
-      - "9104:9104"
+      MYSQLD_EXPORTER_DSN_FILE: /run/secrets/mysql_exporter_dsn
     depends_on:
       - mysql
     networks:
-      - db_net
+    - db_net
 
   node-exporter:
     image: prom/node-exporter
@@ -107,3 +107,8 @@ networks:
   backend_net:
   db_net:
   monitor_net:
+
+secrets:
+  mysql_exporter_dsn:
+    external: true
+

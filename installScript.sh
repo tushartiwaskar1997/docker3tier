@@ -53,6 +53,7 @@ sudo systemctl restart crond
 echo "🎉 Setup completed successfully!"
 echo "⚠️ Logout & login again to activate docker group permissions"
 
+sudo docker swarm init
 
 aws confifgure no hhard coaded , 
 terraform init , terraform plan  ,terraform apply  
